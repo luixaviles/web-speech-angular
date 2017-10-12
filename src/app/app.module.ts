@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
 import { HomeComponent } from './home/home.component';
+import { SpeechRecognizerService } from './shared/services/speech-recognizer.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { HomeComponent } from './home/home.component';
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [SpeechRecognizerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

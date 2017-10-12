@@ -1,0 +1,143 @@
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
+import {SpeechNotification} from '../model/speech-notification';
+import { AppWindow } from '../app-window';
+const { webkitSpeechRecognition }: AppWindow = <AppWindow>window;
+
+@Injectable()
+export class SpeechRecognizerService {
+  recognition: any;
+  startTimestamp;
+  ignoreOnEnd: boolean;
+
+  constructor() {
+    this.initRecognition();
+  }
+
+  initRecognition(): void {
+    console.log('SpeechRecognizerService.initRecognition');
+    this.recognition = new webkitSpeechRecognition();
+    this.recognition.continuous = true;
+    this.recognition.interimResults = true;
+    this.recognition.lang = 'en-US';
+    this.recognition.continuous = true;
+    this.recognition.interimResults = true;
+
+  }
+
+  start(timestamp) {
+    this.startTimestamp = timestamp;
+    this.recognition.start();
+  }
+
+  onStart(): Observable<SpeechNotification> {
+    if (!this.recognition) {
+      this.initRecognition();
+    }
+
+    console.log('SpeechRecognizerService.start');
+    return new Observable(observer => {
+      this.recognition.onstart = () => {
+        observer.next({
+          info: 'info_speak_now'
+        });
+      };
+    });
+  }
+
+  onEnd(): Observable<SpeechNotification> {
+    console.log('SpeechRecognizerService.onEnd');
+    return new Observable(observer => {
+      this.recognition.onend = () => {
+        if (this.ignoreOnEnd) {
+          return;
+        }
+
+        observer.next({
+          info: 'info_start'
+        });
+      };
+    });
+  }
+
+  onResult(): Observable<SpeechNotification> {
+    console.log('SpeechRecognizerService.onResult');
+    return new Observable(observer => {
+      this.recognition.onresult = (event) => {
+        console.log('SpeechRecognizerService.onresult', event);
+        let interimTranscript = '',
+          interimSpan,
+          finalSpan,
+          finalTranscript = '';
+        for (var i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          } else {
+            interimTranscript += event.results[i][0].transcript;
+          }
+        }
+        console.log('final_transcript', finalTranscript);
+        finalTranscript = this.capitalize(finalTranscript);
+        console.log('final_transcript.capitalize', finalTranscript);
+        finalSpan = this.linebreak(finalTranscript);
+        console.log('final_span', finalSpan);
+        interimSpan = this.linebreak(interimTranscript);
+        console.log('interim_span', interimSpan);
+
+        observer.next({
+          info: 'final_transcript',
+          content: finalTranscript
+        });
+        observer.next({
+          info: 'interim_transcript',
+          content: interimTranscript
+        });
+      };
+    });
+  }
+
+  onError(): Observable<SpeechNotification> {
+    return new Observable(observer => {
+      this.recognition.onerror = (event) => {
+        let result;
+        if (event.error == 'no-speech') {
+          result = 'info_no_speech';
+          this.ignoreOnEnd = true;
+        }
+        if (event.error == 'audio-capture') {
+          result = 'info_no_microphone';
+          this.ignoreOnEnd = true;
+        }
+        if (event.error == 'not-allowed') {
+          if (event.timeStamp - this.startTimestamp < 100) {
+            result = 'info_blocked';
+          } else {
+            result = 'info_denied';
+          }
+
+          this.ignoreOnEnd = true;
+        }
+        observer.next({
+          info: result
+        });
+      };
+    });
+  }
+
+  stop() {
+    console.log('SpeechRecognizerService.stop');
+    this.recognition.stop();
+  }
+
+  private capitalize(s: string) {
+    const firstChar = /\S/;
+    return s.replace(firstChar, function (m) { return m.toUpperCase(); });
+  }
+
+  private linebreak(s) {
+    const twoLine = /\n\n/g;
+    const oneLine = /\n/g;
+    return s.replace(twoLine, '<p></p>').replace(oneLine, '<br>');
+  }
+}
