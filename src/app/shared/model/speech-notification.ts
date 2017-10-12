@@ -1,4 +1,6 @@
+import { SpeechError } from './speech-error';
 export interface SpeechNotification {
-    info: string;
+    info?: string;
+    error?: SpeechError;
     content?:any;
 }

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import {SpeechNotification} from '../model/speech-notification';
+import { SpeechNotification } from '../model/speech-notification';
+import { SpeechError } from '../model/speech-error';
+
 import { AppWindow } from '../app-window';
 const { webkitSpeechRecognition }: AppWindow = <AppWindow>window;
 
@@ -100,26 +102,26 @@ export class SpeechRecognizerService {
   onError(): Observable<SpeechNotification> {
     return new Observable(observer => {
       this.recognition.onerror = (event) => {
-        let result;
+        let result: SpeechError;
         if (event.error == 'no-speech') {
-          result = 'info_no_speech';
+          result = SpeechError.NO_SPEECH;
           this.ignoreOnEnd = true;
         }
         if (event.error == 'audio-capture') {
-          result = 'info_no_microphone';
+          result = SpeechError.NO_MICROPHONE;
           this.ignoreOnEnd = true;
         }
         if (event.error == 'not-allowed') {
           if (event.timeStamp - this.startTimestamp < 100) {
-            result = 'info_blocked';
+            result = SpeechError.BLOCKED;
           } else {
-            result = 'info_denied';
+            result = SpeechError.NOT_ALLOWED;
           }
 
           this.ignoreOnEnd = true;
         }
         observer.next({
-          info: result
+          error: result
         });
       };
     });
