@@ -4,3 +4,31 @@
   </button>
   <span>Web Speech Angular</span>
 </mat-toolbar>
+
+<div class="center">
+  <button mat-button id="start_button" (click)="startButton($event)">
+    Click!
+    <!--<img *ngIf="!recognizing" src="assets/mic.gif">
+    <img *ngIf="recognizing" src="assets/mic-animate.gif">-->
+  </button>
+</div>
+
+<form class="home-form">
+  <mat-form-field class="full-width">
+    <textarea matInput [value]="final_transcript" placeholder=""></textarea>
+  </mat-form-field>
+</form>
+
+<div>
+  Final span: {{final_span}}
+</div>
+<div>
+  Interim span: {{interim_span}}
+</div>
+<div>
+  Final transcript: {{final_transcript}}
+</div>
+<div>
+  Final transcripts: {{final_transcripts}}
+</div>
+
