@@ -132,7 +132,7 @@ export class HomeComponent implements OnInit {
     if (theme) {
       this.styleManager.removeStyle('theme');
       this.styleManager.setStyle('theme', `assets/theme/${theme.href}`);
-      this.speechSynthesizer.speak(`Changing Theme of the App to ${theme.keyword}`);
+      this.speechSynthesizer.speak(`Changing Theme of the Application to ${theme.keyword}`);
     }
   }
 }

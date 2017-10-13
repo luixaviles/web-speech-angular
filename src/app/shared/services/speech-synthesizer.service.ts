@@ -10,7 +10,6 @@ export class SpeechSynthesizerService {
 
   initSynthesis(): void {
     this.message = new SpeechSynthesisUtterance();
-    const voices = speechSynthesis.getVoices();
     this.message.volume = 1;
     this.message.rate = 1;
     this.message.pitch = 0.2;
