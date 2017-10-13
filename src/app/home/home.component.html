@@ -6,29 +6,16 @@
 </mat-toolbar>
 
 <div class="center">
-  <button mat-button id="start_button" (click)="startButton($event)">
-    Click!
-    <!--<img *ngIf="!recognizing" src="assets/mic.gif">
-    <img *ngIf="recognizing" src="assets/mic-animate.gif">-->
+  <button mat-fab (click)="startButton($event)">
+      <mat-icon *ngIf="!recognizing">mic</mat-icon>
+      <mat-icon *ngIf="recognizing">stop</mat-icon>
   </button>
 </div>
 
-<form class="home-form">
-  <mat-form-field class="full-width">
-    <textarea matInput [value]="final_transcript" placeholder=""></textarea>
+<form>
+  <mat-form-field class="speech-result-width">
+    <textarea matInput [value]="finalTranscript" placeholder="Speech Input Result" rows="15" disabled="true"></textarea>
   </mat-form-field>
 </form>
 
-<div>
-  Final span: {{final_span}}
-</div>
-<div>
-  Interim span: {{interim_span}}
-</div>
-<div>
-  Final transcript: {{final_transcript}}
-</div>
-<div>
-  Final transcripts: {{final_transcripts}}
-</div>
-
+<mat-card *ngIf="notification" class="notification">{{notification}}</mat-card>
