@@ -79,11 +79,7 @@ export class SpeechRecognizerService {
             interimTranscript += event.results[i][0].transcript;
           }
         }
-        console.log('final_transcript', finalTranscript);
-        finalTranscript = this.capitalize(finalTranscript);
-        console.log('final_transcript.capitalize', finalTranscript);
-        finalSpan = this.linebreak(finalTranscript);
-        console.log('final_span', finalSpan);
+        console.log('finalTranscript', finalTranscript);
         interimSpan = this.linebreak(interimTranscript);
         console.log('interim_span', interimSpan);
 

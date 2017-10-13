@@ -3,6 +3,9 @@ import { SpeechRecognizerService } from '../shared/services/speech-recognizer.se
 
 import { SpeechNotification } from '../shared/model/speech-notification';
 import { SpeechError } from '../shared/model/speech-error';
+import { StyleManager } from '../shared/style-manager'
+import { Theme } from '../shared/model/theme'
+import { Action } from '../shared/model/action'
 
 @Component({
   selector: 'wsa-home',
@@ -13,9 +16,29 @@ export class HomeComponent implements OnInit {
   finalTranscript: string = '';
   recognizing: boolean = false;
   notification: string;
+  themes: Theme[] = [
+    {
+      keyword: 'deep',
+      href: 'deeppurple-amber.css'
+    },
+    {
+      keyword: 'indigo',
+      href: 'indigo-pink.css'
+    },
+    {
+      keyword: 'pink',
+      href: 'pink-bluegrey.css'
+    },
+    {
+      keyword: 'purple',
+      href: 'purple-green.css'
+    }
+  ];
+  actionMode: Action = Action.UNDEFINED;
 
   constructor(private changeDetector: ChangeDetectorRef,
-    private speechRecognizer: SpeechRecognizerService) { }
+    private speechRecognizer: SpeechRecognizerService,
+    private styleManager: StyleManager) { }
 
   ngOnInit() {
     this.initRecognition();
@@ -43,14 +66,24 @@ export class HomeComponent implements OnInit {
       .subscribe(data => {
         this.recognizing = false;
         this.detectChanges();
+        this.notification = null;
       });
 
     this.speechRecognizer.onResult()
       .subscribe((data: SpeechNotification) => {
+        const message = data.content.trim();
         console.log('HomeComponent.onResult', data);
-        if (data.info === 'final_transcript' && data.content.trim().length > 0) {
-          this.finalTranscript = `${this.finalTranscript}\n${data.content.trim()}`;
+        if (data.info === 'final_transcript' && message.length > 0) {
+          this.finalTranscript = `${this.finalTranscript}\n${message}`;
+          if (message === 'enable color') {
+            this.actionMode = Action.CHANGE_THEME_COLOR;
+          }
+          else if (message === 'disable color') {
+            this.actionMode = Action.UNDEFINED;
+          }
+
           this.detectChanges();
+          this.changeTheme(message);
         }
       });
 
@@ -65,11 +98,12 @@ export class HomeComponent implements OnInit {
             break;
           case SpeechError.NO_SPEECH:
             this.notification = `No speech has been detected. Please try again.`;
-          break;
+            break;
           case SpeechError.NO_MICROPHONE:
             this.notification = `Microphone is not available. Plese verify the connection of your microphone and try again.`
-          break;
+            break;
           default:
+            this.notification = null;
             break;
         }
         this.recognizing = false;
@@ -79,5 +113,20 @@ export class HomeComponent implements OnInit {
 
   detectChanges() {
     this.changeDetector.detectChanges();
+  }
+
+  changeTheme(input: string) {
+    console.log('changeTheme', input);
+    if (this.actionMode !== Action.CHANGE_THEME_COLOR) {
+      return;
+    }
+
+    let theme = this.themes.find((theme) => {
+      return input === theme.keyword;
+    });
+    if (theme) {
+      this.styleManager.removeStyle('theme');
+      this.styleManager.setStyle('theme', `assets/theme/${theme.href}`);
+    }
   }
 }

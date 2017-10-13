@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
 import { HomeComponent } from './home/home.component';
 import { SpeechRecognizerService } from './shared/services/speech-recognizer.service';
+import { StyleManager } from './shared/style-manager';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { SpeechRecognizerService } from './shared/services/speech-recognizer.ser
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [SpeechRecognizerService],
+  providers: [SpeechRecognizerService, StyleManager],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
