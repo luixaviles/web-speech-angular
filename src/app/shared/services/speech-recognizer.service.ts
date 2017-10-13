@@ -18,7 +18,6 @@ export class SpeechRecognizerService {
   }
 
   initRecognition(): void {
-    console.log('SpeechRecognizerService.initRecognition');
     this.recognition = new webkitSpeechRecognition();
     this.recognition.continuous = true;
     this.recognition.interimResults = true;
@@ -38,7 +37,6 @@ export class SpeechRecognizerService {
       this.initRecognition();
     }
 
-    console.log('SpeechRecognizerService.start');
     return new Observable(observer => {
       this.recognition.onstart = () => {
         observer.next({
@@ -49,7 +47,6 @@ export class SpeechRecognizerService {
   }
 
   onEnd(): Observable<SpeechNotification> {
-    console.log('SpeechRecognizerService.onEnd');
     return new Observable(observer => {
       this.recognition.onend = () => {
         if (this.ignoreOnEnd) {
@@ -64,7 +61,6 @@ export class SpeechRecognizerService {
   }
 
   onResult(): Observable<SpeechNotification> {
-    console.log('SpeechRecognizerService.onResult');
     return new Observable(observer => {
       this.recognition.onresult = (event) => {
         console.log('SpeechRecognizerService.onresult', event);
@@ -81,7 +77,7 @@ export class SpeechRecognizerService {
         }
         console.log('finalTranscript', finalTranscript);
         interimSpan = this.linebreak(interimTranscript);
-        console.log('interim_span', interimSpan);
+        console.log('interimSpan', interimSpan);
 
         observer.next({
           info: 'final_transcript',
