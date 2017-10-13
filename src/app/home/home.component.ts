@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { SpeechRecognizerService } from '../shared/services/speech-recognizer.service';
+import { SpeechSynthesizerService } from '../shared/services/speech-synthesizer.service';
 
 import { SpeechNotification } from '../shared/model/speech-notification';
 import { SpeechError } from '../shared/model/speech-error';
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit {
   notification: string;
   themes: Theme[] = [
     {
-      keyword: 'deep',
+      keyword: 'deep purple',
       href: 'deeppurple-amber.css'
     },
     {
@@ -38,6 +39,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private changeDetector: ChangeDetectorRef,
     private speechRecognizer: SpeechRecognizerService,
+    private speechSynthesizer: SpeechSynthesizerService,
     private styleManager: StyleManager) { }
 
   ngOnInit() {
@@ -77,9 +79,11 @@ export class HomeComponent implements OnInit {
           this.finalTranscript = `${this.finalTranscript}\n${message}`;
           if (message === 'enable color') {
             this.actionMode = Action.CHANGE_THEME_COLOR;
+            this.speechSynthesizer.speak(`Please, tell me your color.`);
           }
           else if (message === 'disable color') {
             this.actionMode = Action.UNDEFINED;
+            this.speechSynthesizer.speak(`Your action has been completed.`);
           }
 
           this.detectChanges();
@@ -122,11 +126,13 @@ export class HomeComponent implements OnInit {
     }
 
     let theme = this.themes.find((theme) => {
-      return input === theme.keyword;
+      return input.toLocaleLowerCase() === theme.keyword;
     });
+
     if (theme) {
       this.styleManager.removeStyle('theme');
       this.styleManager.setStyle('theme', `assets/theme/${theme.href}`);
+      this.speechSynthesizer.speak(`Changing Theme of the App to ${theme.keyword}`);
     }
   }
 }
