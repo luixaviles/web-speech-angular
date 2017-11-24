@@ -16,7 +16,7 @@ export class SpeechRecognizerService {
 
   constructor() {}
 
-  private initialize(language: string): void {
+  initialize(language: string): void {
     console.log('initialize', language);
     this.recognition = new webkitSpeechRecognition();
     this.recognition.continuous = true;
@@ -27,14 +27,8 @@ export class SpeechRecognizerService {
   }
 
   setLanguage(language: string) {
-    if (this.recognition) {
-      this.stop();
-    }
-
     console.log('setLanguage', language);
-    this.language = language;
-    this.initialize(language);
-
+    this.recognition.lang = language;
   }
 
   start(timestamp) {

@@ -46,7 +46,7 @@ export class WebSpeechComponent implements OnInit {
 
   ngOnInit() {
     this.currentLanguage = this.languages[0];
-    this.speechRecognizer.setLanguage(this.currentLanguage);
+    this.speechRecognizer.initialize(this.currentLanguage);
     this.initRecognition();
     this.notification = null;
   }
@@ -59,14 +59,10 @@ export class WebSpeechComponent implements OnInit {
 
     this.speechRecognizer.start(event.timeStamp);
   }
-
+  
   onSelectLanguage(language: string) {
-    if (this.recognizing) {
-      this.speechRecognizer.stop();
-      return;
-    }
-
-    this.speechRecognizer.setLanguage(language);
+    this.currentLanguage = language;
+    this.speechRecognizer.setLanguage(this.currentLanguage);
   }
 
   private initRecognition() {
