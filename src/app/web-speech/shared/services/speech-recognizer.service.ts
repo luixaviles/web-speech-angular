@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { SpeechNotification } from '../model/speech-notification';
 import { SpeechError } from '../model/speech-error';
 
-import { AppWindow } from '../app-window';
+import { AppWindow } from '../model/app-window';
 const { webkitSpeechRecognition }: AppWindow = <AppWindow>window;
 
 @Injectable()
@@ -12,18 +12,28 @@ export class SpeechRecognizerService {
   recognition: any;
   startTimestamp;
   ignoreOnEnd: boolean;
+  language: string;
 
-  constructor() {
-    this.initRecognition();
-  }
+  constructor() {}
 
-  initRecognition(): void {
+  private initialize(language: string): void {
+    console.log('initialize', language);
     this.recognition = new webkitSpeechRecognition();
     this.recognition.continuous = true;
     this.recognition.interimResults = true;
-    this.recognition.lang = 'en-US';
+    this.recognition.lang = language;
     this.recognition.continuous = true;
     this.recognition.interimResults = true;
+  }
+
+  setLanguage(language: string) {
+    if (this.recognition) {
+      this.stop();
+    }
+
+    console.log('setLanguage', language);
+    this.language = language;
+    this.initialize(language);
 
   }
 
@@ -34,7 +44,7 @@ export class SpeechRecognizerService {
 
   onStart(): Observable<SpeechNotification> {
     if (!this.recognition) {
-      this.initRecognition();
+      this.initialize(this.language);
     }
 
     return new Observable(observer => {
@@ -113,7 +123,8 @@ export class SpeechRecognizerService {
           this.ignoreOnEnd = true;
         }
         observer.next({
-          error: result
+          error: result,
+          event: event
         });
       };
     });

@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
-  MATERIAL_COMPATIBILITY_MODE,
   MatButtonModule,
   MatCardModule,
   MatInputModule,
   MatFormFieldModule,
   MatIconModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatSelectModule
 } from '@angular/material';
 
 @NgModule({
@@ -19,7 +19,8 @@ import {
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSelectModule
   ],
   exports: [
     MatButtonModule,
@@ -27,11 +28,10 @@ import {
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSelectModule
   ],
-  providers: [
-    { provide: MATERIAL_COMPATIBILITY_MODE, useValue: true }
-  ],
+  providers: [],
   declarations: []
 })
 export class MaterialModule { }

@@ -1,19 +1,19 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { SpeechRecognizerService } from '../shared/services/speech-recognizer.service';
-import { SpeechSynthesizerService } from '../shared/services/speech-synthesizer.service';
+import { SpeechRecognizerService } from './shared/services/speech-recognizer.service';
+import { SpeechSynthesizerService } from './shared/services/speech-synthesizer.service';
 
-import { SpeechNotification } from '../shared/model/speech-notification';
-import { SpeechError } from '../shared/model/speech-error';
-import { StyleManager } from '../shared/style-manager'
-import { Theme } from '../shared/model/theme'
-import { Action } from '../shared/model/action'
+import { SpeechNotification } from './shared/model/speech-notification';
+import { SpeechError } from './shared/model/speech-error';
+import { StyleManager } from '../shared/style-manager/style-manager';
+import { Theme } from './shared/model/theme';
+import { Action } from './shared/model/action';
 
 @Component({
-  selector: 'wsa-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'wsa-web-speech',
+  templateUrl: './web-speech.component.html',
+  styleUrls: ['./web-speech.component.css']
 })
-export class HomeComponent implements OnInit {
+export class WebSpeechComponent implements OnInit {
   finalTranscript: string = '';
   recognizing: boolean = false;
   notification: string;
@@ -35,6 +35,8 @@ export class HomeComponent implements OnInit {
       href: 'purple-green.css'
     }
   ];
+  languages: string[] =  ['en-US', 'es-ES'];
+  currentLanguage: string;
   actionMode: Action = Action.UNDEFINED;
 
   constructor(private changeDetector: ChangeDetectorRef,
@@ -43,6 +45,8 @@ export class HomeComponent implements OnInit {
     private styleManager: StyleManager) { }
 
   ngOnInit() {
+    this.currentLanguage = this.languages[0];
+    this.speechRecognizer.setLanguage(this.currentLanguage);
     this.initRecognition();
     this.notification = null;
   }
@@ -56,9 +60,19 @@ export class HomeComponent implements OnInit {
     this.speechRecognizer.start(event.timeStamp);
   }
 
+  onSelectLanguage(language: string) {
+    if (this.recognizing) {
+      this.speechRecognizer.stop();
+      return;
+    }
+
+    this.speechRecognizer.setLanguage(language);
+  }
+
   private initRecognition() {
     this.speechRecognizer.onStart()
       .subscribe(data => {
+        console.log('onStart', data);
         this.recognizing = true;
         this.notification = 'I\'m listening...';
         this.detectChanges();
@@ -66,6 +80,7 @@ export class HomeComponent implements OnInit {
 
     this.speechRecognizer.onEnd()
       .subscribe(data => {
+        console.log('onEnd', data);
         this.recognizing = false;
         this.detectChanges();
         this.notification = null;
@@ -73,6 +88,7 @@ export class HomeComponent implements OnInit {
 
     this.speechRecognizer.onResult()
       .subscribe((data: SpeechNotification) => {
+        console.log('onResult', data);
         const message = data.content.trim();
         console.log('HomeComponent.onResult', data);
         if (data.info === 'final_transcript' && message.length > 0) {
@@ -93,6 +109,7 @@ export class HomeComponent implements OnInit {
 
     this.speechRecognizer.onError()
       .subscribe(data => {
+        console.log('onError', data);
         switch (data.error) {
           case SpeechError.BLOCKED:
           case SpeechError.NOT_ALLOWED:
