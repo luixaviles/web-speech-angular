@@ -35,7 +35,7 @@ export class WebSpeechComponent implements OnInit {
 
     this.speechRecognizer.start(event.timeStamp);
   }
-  
+
   onSelectLanguage(language: string) {
     this.currentLanguage = language;
     this.speechRecognizer.setLanguage(this.currentLanguage);
@@ -67,7 +67,7 @@ export class WebSpeechComponent implements OnInit {
           this.finalTranscript = `${this.finalTranscript}\n${message}`;
           this.actionContext.processMessage(message, this.currentLanguage);
           this.detectChanges();
-          this.actionContext.runAction(message);
+          this.actionContext.runAction(message, this.currentLanguage);
         }
       });
 

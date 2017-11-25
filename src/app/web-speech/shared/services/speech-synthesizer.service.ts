@@ -13,12 +13,12 @@ export class SpeechSynthesizerService {
     this.message.volume = 1;
     this.message.rate = 1;
     this.message.pitch = 0.2;
-    this.message.lang = 'en-US';
   }
 
-  speak(message): void {
+  speak(message: string, language: string): void {
+    this.message.lang = language;
+    console.log('speaking, ', this.message.lang);
     this.message.text = message;
     speechSynthesis.speak(this.message);
   }
-
 }
