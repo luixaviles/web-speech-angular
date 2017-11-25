@@ -110,15 +110,14 @@ export class SpeechRecognizerService {
         if (event.error == 'not-allowed') {
           if (event.timeStamp - this.startTimestamp < 100) {
             result = SpeechError.BLOCKED;
-          } else {
+        } else {
             result = SpeechError.NOT_ALLOWED;
           }
 
           this.ignoreOnEnd = true;
         }
         observer.next({
-          error: result,
-          event: event
+          error: result
         });
       };
     });

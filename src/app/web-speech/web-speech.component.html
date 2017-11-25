@@ -1,6 +1,6 @@
 <div class="center">
   <mat-form-field>
-    <mat-select placeholder="Select your language" 
+    <mat-select placeholder="Select your language"
                 [(ngModel)]="currentLanguage" [disabled]="recognizing">
       <mat-option *ngFor="let language of languages" [value]="language" (click)="onSelectLanguage(language)">
         {{language}}

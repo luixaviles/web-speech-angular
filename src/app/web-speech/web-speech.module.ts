@@ -13,6 +13,6 @@ import { WebSpeechComponent } from './web-speech.component';
     MaterialModule
   ],
   declarations: [WebSpeechComponent],
-  providers: [ SpeechRecognizerService, SpeechSynthesizerService, ]
+  providers: [ SpeechRecognizerService, SpeechSynthesizerService ]
 })
 export class WebSpeechModule { }
