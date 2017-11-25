@@ -4,24 +4,22 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MaterialModule } from './material/material.module';
-import { HomeComponent } from './home/home.component';
-import { SpeechRecognizerService } from './shared/services/speech-recognizer.service';
-import { SpeechSynthesizerService } from './shared/services/speech-synthesizer.service';
-import { StyleManager } from './shared/style-manager';
+import { MaterialModule } from './shared/material/material.module';
+import { WebSpeechModule } from './web-speech/web-speech.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent
+    AppComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    WebSpeechModule,
+    SharedModule
   ],
-  providers: [SpeechRecognizerService, SpeechSynthesizerService, StyleManager],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
