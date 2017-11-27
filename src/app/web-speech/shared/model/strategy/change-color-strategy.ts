@@ -89,7 +89,6 @@ export class ChangeColorStrategy extends ActionStrategy {
     }
 
     runAction(input: string, language: string): void {
-        console.log('runAction. changeTheme', input);
         let theme = this.mapThemes.get(language).find((theme) => {
           return input.toLocaleLowerCase() === theme.keyword;
         });

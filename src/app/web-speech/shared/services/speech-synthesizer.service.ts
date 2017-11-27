@@ -17,7 +17,6 @@ export class SpeechSynthesizerService {
 
   speak(message: string, language: string): void {
     this.message.lang = language;
-    console.log('speaking, ', this.message.lang);
     this.message.text = message;
     speechSynthesis.speak(this.message);
   }

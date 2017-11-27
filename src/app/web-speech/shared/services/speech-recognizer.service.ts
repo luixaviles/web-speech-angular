@@ -17,7 +17,6 @@ export class SpeechRecognizerService {
   constructor() {}
 
   initialize(language: string): void {
-    console.log('initialize', language);
     this.recognition = new webkitSpeechRecognition();
     this.recognition.continuous = true;
     this.recognition.interimResults = true;
@@ -27,7 +26,6 @@ export class SpeechRecognizerService {
   }
 
   setLanguage(language: string) {
-    console.log('setLanguage', language);
     this.recognition.lang = language;
   }
 
@@ -67,7 +65,6 @@ export class SpeechRecognizerService {
   onResult(): Observable<SpeechNotification> {
     return new Observable(observer => {
       this.recognition.onresult = (event) => {
-        console.log('SpeechRecognizerService.onresult', event);
         let interimTranscript = '',
           interimSpan,
           finalSpan,
@@ -79,9 +76,7 @@ export class SpeechRecognizerService {
             interimTranscript += event.results[i][0].transcript;
           }
         }
-        console.log('finalTranscript', finalTranscript);
         interimSpan = this.linebreak(interimTranscript);
-        console.log('interimSpan', interimSpan);
 
         observer.next({
           info: 'final_transcript',
@@ -124,7 +119,6 @@ export class SpeechRecognizerService {
   }
 
   stop() {
-    console.log('SpeechRecognizerService.stop');
     this.recognition.stop();
   }
 

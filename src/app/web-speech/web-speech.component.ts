@@ -44,7 +44,6 @@ export class WebSpeechComponent implements OnInit {
   private initRecognition() {
     this.speechRecognizer.onStart()
       .subscribe(data => {
-        console.log('onStart', data);
         this.recognizing = true;
         this.notification = 'I\'m listening...';
         this.detectChanges();
@@ -52,7 +51,6 @@ export class WebSpeechComponent implements OnInit {
 
     this.speechRecognizer.onEnd()
       .subscribe(data => {
-        console.log('onEnd', data);
         this.recognizing = false;
         this.detectChanges();
         this.notification = null;
@@ -60,9 +58,7 @@ export class WebSpeechComponent implements OnInit {
 
     this.speechRecognizer.onResult()
       .subscribe((data: SpeechNotification) => {
-        console.log('onResult', data);
         const message = data.content.trim();
-        console.log('HomeComponent.onResult', data);
         if (data.info === 'final_transcript' && message.length > 0) {
           this.finalTranscript = `${this.finalTranscript}\n${message}`;
           this.actionContext.processMessage(message, this.currentLanguage);
@@ -73,7 +69,6 @@ export class WebSpeechComponent implements OnInit {
 
     this.speechRecognizer.onError()
       .subscribe(data => {
-        console.log('onError', data);
         switch (data.error) {
           case SpeechError.BLOCKED:
           case SpeechError.NOT_ALLOWED:
