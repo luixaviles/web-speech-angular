@@ -12,7 +12,12 @@ import { WebSpeechComponent } from './web-speech.component';
     FormsModule,
     MaterialModule
   ],
-  declarations: [WebSpeechComponent],
-  providers: [ SpeechRecognizerService, SpeechSynthesizerService ]
+  declarations: [
+    WebSpeechComponent
+  ],
+  providers: [
+    SpeechRecognizerService,
+    SpeechSynthesizerService
+  ]
 })
 export class WebSpeechModule { }

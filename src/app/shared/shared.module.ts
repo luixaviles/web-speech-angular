@@ -8,8 +8,11 @@ import { StyleManager } from './style-manager/style-manager';
     CommonModule,
     MaterialModule
   ],
-  exports: [MaterialModule],
-  declarations: [],
-  providers: [StyleManager]
+  exports: [
+    MaterialModule
+  ],
+  providers: [
+    StyleManager
+  ]
 })
 export class SharedModule { }

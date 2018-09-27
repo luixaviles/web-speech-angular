@@ -11,15 +11,14 @@ export class ActionContext {
         if (message.toLowerCase() === this.changeColorStrategy.getStartSignal(language)) {
             this.setStrategy(this.changeColorStrategy);
             this.speechSynthesizer.speak(this.currentStrategy.getInitialResponse(language), language);
-        }
-        else if (message.toLowerCase() === this.changeColorStrategy.getEndSignal(language)) {
+        } else if (message.toLowerCase() === this.changeColorStrategy.getEndSignal(language)) {
           this.speechSynthesizer.speak(this.currentStrategy.getFinishResponse(language), language);
           this.setStrategy(null);
         }
     }
 
     runAction(input: string, language: string) {
-        if(this.currentStrategy) {
+        if (this.currentStrategy) {
             this.currentStrategy.runAction(input, language);
         }
     }

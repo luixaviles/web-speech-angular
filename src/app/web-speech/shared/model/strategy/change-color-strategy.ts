@@ -1,6 +1,5 @@
 import { ActionStrategy } from './action-strategy';
 import { Theme } from '../theme';
-import { Action } from '../action';
 import { StyleManager } from '../../../../shared/style-manager/style-manager';
 import { SpeechSynthesizerService } from '../../../shared/services/speech-synthesizer.service';
 
@@ -89,8 +88,8 @@ export class ChangeColorStrategy extends ActionStrategy {
     }
 
     runAction(input: string, language: string): void {
-        let theme = this.mapThemes.get(language).find((theme) => {
-          return input.toLocaleLowerCase() === theme.keyword;
+        const theme = this.mapThemes.get(language).find((th) => {
+          return input.toLocaleLowerCase() === th.keyword;
         });
 
         if (theme) {

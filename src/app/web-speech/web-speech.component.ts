@@ -4,21 +4,23 @@ import { SpeechRecognizerService } from './shared/services/speech-recognizer.ser
 import { SpeechNotification } from './shared/model/speech-notification';
 import { SpeechError } from './shared/model/speech-error';
 import { ActionContext } from './shared/model/strategy/action-context';
+
 @Component({
   selector: 'wsa-web-speech',
   templateUrl: './web-speech.component.html',
   styleUrls: ['./web-speech.component.css']
 })
 export class WebSpeechComponent implements OnInit {
-  finalTranscript: string = '';
-  recognizing: boolean = false;
+
+  finalTranscript = '';
+  recognizing = false;
   notification: string;
   languages: string[] =  ['en-US', 'es-ES'];
   currentLanguage: string;
   actionContext: ActionContext = new ActionContext();
 
   constructor(private changeDetector: ChangeDetectorRef,
-    private speechRecognizer: SpeechRecognizerService) { }
+              private speechRecognizer: SpeechRecognizerService) { }
 
   ngOnInit() {
     this.currentLanguage = this.languages[0];
@@ -74,13 +76,13 @@ export class WebSpeechComponent implements OnInit {
           case SpeechError.NOT_ALLOWED:
             this.notification = `Cannot run the demo.
             Your browser is not authorized to access your microphone. Verify that your browser has access to your microphone and try again.
-            `
+            `;
             break;
           case SpeechError.NO_SPEECH:
             this.notification = `No speech has been detected. Please try again.`;
             break;
           case SpeechError.NO_MICROPHONE:
-            this.notification = `Microphone is not available. Plese verify the connection of your microphone and try again.`
+            this.notification = `Microphone is not available. Plese verify the connection of your microphone and try again.`;
             break;
           default:
             this.notification = null;
