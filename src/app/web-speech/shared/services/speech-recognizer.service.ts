@@ -5,7 +5,7 @@ import { SpeechNotification } from '../model/speech-notification';
 import { SpeechError } from '../model/speech-error';
 
 import { AppWindow } from '../model/app-window';
-const { webkitSpeechRecognition }: AppWindow = <AppWindow>window;
+const { webkitSpeechRecognition }: AppWindow = (window as any) as AppWindow;
 
 @Injectable()
 export class SpeechRecognizerService {
@@ -22,8 +22,6 @@ export class SpeechRecognizerService {
     this.recognition.continuous = true;
     this.recognition.interimResults = true;
     this.recognition.lang = language;
-    this.recognition.continuous = true;
-    this.recognition.interimResults = true;
   }
 
   setLanguage(language: string) {
@@ -74,6 +72,7 @@ export class SpeechRecognizerService {
             finalTranscript += event.results[i][0].transcript;
           } else {
             interimTranscript += event.results[i][0].transcript;
+            console.log('interim transcript', event, interimTranscript);
           }
         }
 

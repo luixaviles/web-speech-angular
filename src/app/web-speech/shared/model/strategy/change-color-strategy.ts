@@ -65,7 +65,7 @@ export class ChangeColorStrategy extends ActionStrategy {
             href: 'pink-bluegrey.css'
           },
           {
-            keyword: 'púrpura verde',
+            keyword: 'verde',
             href: 'purple-green.css'
           }
         ]);
