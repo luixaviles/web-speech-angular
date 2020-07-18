@@ -11,6 +11,8 @@
 
 This project has been implemented entirely using the `TypeScript` language.
 
+<img src="./images/web-speech-api.jpg?raw=true">
+
 ## Blog Post
 Read the blog post with all the details about the implementation of this project here: [https://luixaviles.com/2020/07/build-your-first-voice-driven-web-app/](https://luixaviles.com/2020/07/build-your-first-voice-driven-web-app/)
 
