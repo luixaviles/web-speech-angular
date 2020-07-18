@@ -6,12 +6,12 @@ import { WebSpeechComponent } from './web-speech/web-speech.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'web-speech',
+    component: WebSpeechComponent,
     pathMatch: 'full'
   },
   {
-    path: 'web-speech',
-    component: WebSpeechComponent
+    path: '**',
+    redirectTo: ''
   }
 ];
 
