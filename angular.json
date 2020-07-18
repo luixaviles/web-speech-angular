@@ -123,6 +123,10 @@
               "devServerTarget": "web-speech-angular:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
     }

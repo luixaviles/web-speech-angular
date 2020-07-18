@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy": "ng deploy web-speech-angular --base-href=/web-speech-angular/"
   },
   "private": true,
   "dependencies": {
@@ -29,9 +30,10 @@
     "@angular-devkit/build-angular": "~0.1000.0",
     "@angular/cli": "~10.0.0",
     "@angular/compiler-cli": "~10.0.0",
-    "@types/node": "^12.11.1",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
+    "angular-cli-ghpages": "^0.6.2",
     "codelyzer": "^6.0.0-next.1",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.0",
