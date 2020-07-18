@@ -1,19 +1,53 @@
 .speech-result-width {
-  width: 90%;
-  padding-left: 20px;
-  padding-right: 20px;
+  width: 100%;
 }
 
-.center {
-  padding: 10px;
+textarea {
+  text-align: justify;
+  text-align-last: center;
+}
+
+section {
+  padding: 15px;
   text-align: center;
 }
 
 .mat-input-element:disabled {
-  color: rgba(0,0,0,.9);
+  color: rgba(0, 0, 0, 0.9);
 }
 
 .notification {
   margin-left: 20px;
   margin-right: 20px;
+}
+
+.soundwave {
+  animation: soundwave 0.7s infinite;
+}
+
+@keyframes soundwave {
+  from {
+    opacity: 0.5;
+    color: #ffffff;
+  }
+  20% {
+    color: #ffffff;
+    opacity: 0.6;
+  }
+  35% {
+    color: #ffffff;
+    opacity: 0.9;
+  }
+  45% {
+    color: #ffffff;
+    opacity: 1;
+  }
+  55% {
+    color: #ffffff;
+    opacity: 0.9;
+  }
+  to {
+    color: #ffffff;
+    opacity: 0.5;
+  }
 }

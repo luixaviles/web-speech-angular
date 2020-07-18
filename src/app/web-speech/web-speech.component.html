@@ -1,25 +1,31 @@
-<div class="center">
-  <mat-form-field>
-    <mat-select placeholder="Select your language"
-                [(ngModel)]="currentLanguage" [disabled]="recognizing">
-      <mat-option *ngFor="let language of languages" [value]="language" (click)="onSelectLanguage(language)">
-        {{language}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-
-<div class="center">
-  <button mat-fab (click)="startButton($event)">
-    <mat-icon *ngIf="!recognizing">mic</mat-icon>
-    <mat-icon *ngIf="recognizing">stop</mat-icon>
-  </button>
-</div>
-
-<form>
+  <section>
+    <mat-card *ngIf="errorMessage$| async as errorMessage" class="notification">{{errorMessage}}</mat-card>
+  </section>
+  <section>
+    <mat-form-field>
+      <mat-label>Select your language</mat-label>
+      <mat-select [(value)]="currentLanguage">
+        <mat-option *ngFor="let language of languages" [value]="language" (click)="selectLanguage(language)">
+          {{language}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </section>
+  <section>
+    <button mat-fab *ngIf="listening$ | async; else mic" (click)="stop()">
+      <mat-icon class="soundwave">mic</mat-icon>
+    </button>
+    <ng-template #mic>
+      <button mat-fab (click)="start()">
+        <mat-icon>mic</mat-icon>
+      </button>
+    </ng-template>
+  </section>
+<section *ngIf="transcript$ | async">
+  <mat-card class="notification mat-elevation-z4">{{transcript$ | async}}</mat-card>
+</section>
+<section>
   <mat-form-field class="speech-result-width">
-    <textarea matInput [value]="finalTranscript" placeholder="Speech Input Result" rows="15" disabled="true"></textarea>
+    <textarea matInput [value]="totalTranscript || ''" placeholder="Speech Input Result" rows="15" disabled="false"></textarea>
   </mat-form-field>
-</form>
-
-<mat-card *ngIf="notification" class="notification">{{notification}}</mat-card>
+</section>

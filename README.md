@@ -1,27 +1,61 @@
-# WebSpeechAngular
+<p align="center">
+    <a href="https://github.com/luixaviles/web-speech-angular">
+        <img src="https://img.shields.io/github/stars/luixaviles/web-speech-angular.svg?style=social&label=Star" alt="GitHub stars">
+    </a>
+    <a href="https://clicktotweet.com/0pVg2">
+        <img src="https://img.shields.io/twitter/url/https/github.com/luixaviles/web-speech-angular.svg?style=social" alt="Tweet">
+    </a>
+</p>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.4.
+# A Voice-Driven Web Application using Angular and TypeScript
 
-## Development server
+This project has been implemented entirely using the `TypeScript` language.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Blog Post
+Read the blog post with all the details about the implementation of this project here: [https://luixaviles.com/2020/07/build-your-first-voice-driven-web-app/](https://luixaviles.com/2020/07/build-your-first-voice-driven-web-app/)
 
-## Code scaffolding
+## Live Demo
+Try the live demo here: [https://luixaviles.com/web-speech-angular](https://luixaviles.com/web-speech-angular)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Support this project
+- Star GitHub repository :star:
+- Create pull requests, submit bugs or suggest new features
+- Follow updates on [Twitter](https://twitter.com/luixaviles) or [Github](https://github.com/luixaviles)
 
-## Build
+# Running the Project Locally
+First, ensure you have the following installed:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+1. NodeJS - Download and Install latest version of Node: [NodeJS](https://nodejs.org)
+2. Git - Download and Install [Git](https://git-scm.com)
+3. Angular CLI - Install Command Line Interface for Angular [https://cli.angular.io/](https://cli.angular.io/)
 
-## Running unit tests
+After that, use `Git bash` to run all commands if you are on Windows platform.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Clone repository
+In order to start the project use:
 
-## Running end-to-end tests
+```bash
+$ git clone https://github.com/luixaviles/web-speech-angular.git
+$ cd web-speech-angular
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Preview the Application
+Open other command line window and run following commands:
 
-## Further help
+```bash
+$ cd client
+$ npm install
+$ ng serve -o
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+The last command will open your default browser with the following URL by default: [http://localhost:4200](http://localhost:4200/)
+
+## Forks
+The Open Source community is awesome! If you're working in a fork with other tech stack, please add the reference of your project here.
+
+## Contribution
+Contributions are greatly appreciated. You can contribute by adding `i18n` support with your language, the testing section or any other feature you want.
+
+## License
+
+MIT

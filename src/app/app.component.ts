@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalHelpComponent } from './shared/components/modal-help/modal-help.component';
 
 @Component({
   selector: 'wsa-root',
@@ -6,6 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(public dialog: MatDialog) {}
 
-  title = 'wsa';
+  openHelp(): void {
+    this.dialog.open(ModalHelpComponent);
+  }
+
 }
