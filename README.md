@@ -11,8 +11,7 @@
 
 This project has been implemented entirely using the `TypeScript` language.
 
-## Watch the Video
-[![Fundamentos de JavaScript](./images/web-speech-api.jpg?raw=true)](https://youtu.be/PIbMsHciovQ)
+<img src="./images/web-speech-api.jpg?raw=true">
 
 ## Blog Post
 Read the blog post with all the details about the implementation of this project here: [https://luixaviles.com/2020/07/build-your-first-voice-driven-web-app/](https://luixaviles.com/2020/07/build-your-first-voice-driven-web-app/)
@@ -20,6 +19,8 @@ Read the blog post with all the details about the implementation of this project
 ## Live Demo
 Try the live demo here: [https://luixaviles.com/web-speech-angular](https://luixaviles.com/web-speech-angular)
 
+## Watch the Video
+Find the Video Demo [here](https://youtu.be/hjSDHz_qKTQ)
 
 ## Support this project
 - Star GitHub repository :star:
