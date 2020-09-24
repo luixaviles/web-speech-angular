@@ -20,7 +20,7 @@ Read the blog post with all the details about the implementation of this project
 Try the live demo here: [https://luixaviles.com/web-speech-angular](https://luixaviles.com/web-speech-angular)
 
 ## Watch the Video
-Find the Video Demo [here](https://youtu.be/hjSDHz_qKTQ)
+Find the Video Demo [here](https://youtu.be/PIbMsHciovQ)
 
 ## Support this project
 - Star GitHub repository :star:
