@@ -136,7 +136,6 @@
       }
     }
   },
-  "defaultProject": "web-speech-angular",
   "cli": {
     "analytics": true
   }
