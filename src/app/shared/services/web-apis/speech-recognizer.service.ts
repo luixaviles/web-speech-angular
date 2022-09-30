@@ -4,9 +4,6 @@ import { Observable } from 'rxjs';
 import { SpeechNotification } from '../../model/speech-notification';
 import { SpeechError } from '../../model/speech-error';
 import { SpeechEvent } from '../../model/speech-event';
-import { AppWindow } from '../../model/app-window';
-// tslint:disable-next-line:no-any
-const { webkitSpeechRecognition }: AppWindow = (window as any) as AppWindow;
 
 @Injectable({
   providedIn: 'root',
